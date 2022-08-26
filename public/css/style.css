@@ -1,0 +1,26 @@
+h1{
+    color: red;
+}
+.completed{
+    text-decoration: line-through;
+    color: gray;
+}
+.not{
+    text-decoration: underline;
+}
+
+.grid {
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+}
+
+.space {
+    border: 1px solid black;
+    float: left;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
