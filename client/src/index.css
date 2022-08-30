@@ -31,8 +31,16 @@ code {
   width: 4.75%;
   height: 4.75%;
   font-size: 12px;
-  text-align: center;
+  
   /* width: 5pt;
   height: 32px; */
+  border: 1px solid black
+}
+
+.gridTile p {
+  text-align: center;
+  font-size: 16px;
+  /* justify-content:flex-end;
+  align-items: flex-end; */
   border: 1px solid black
 }
