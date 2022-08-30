@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +10,29 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+} */
+
+#app {
+  display: grid;
+  place-content: center;
+  height: 100vh;
+}
+
+#grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  width: 800px;
+  height: 800px;
+  background-color: green;
+}
+
+#grid .gridTile {
+  width: 4.75%;
+  height: 4.75%;
+  font-size: 12px;
+  text-align: center;
+  /* width: 5pt;
+  height: 32px; */
+  border: 1px solid black
 }
