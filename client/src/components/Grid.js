@@ -11,7 +11,7 @@ export default function Grid() {
     for (let i = 1; i <= gridSize; i++) {
         for (let j = 1; j <= gridSize; j++) {
             const id = 'row' + i + '_' + 'col' + j
-            grid.push(<div className="gridTile" id={id}>
+            grid.push(<div className="Tile" id={id}>
                 {(i === startingPosition[0] && j === startingPosition[1]) ? <p>{word[0]}</p> : <></>}
                 {(i === startingPosition[0] && j === startingPosition[1] + 1) ? <p>{word[1]}</p> : <></>}
                 {(i === startingPosition[0] && j === startingPosition[1] + 2) ? <p>{word[2]}</p> : <></>}
