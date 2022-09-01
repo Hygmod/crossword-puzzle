@@ -27,7 +27,7 @@ code {
   background-color: green;
 }
 
-#grid .gridTile {
+#grid .tile {
   width: 4.75%;
   height: 4.75%;
   font-size: 12px;
@@ -37,7 +37,7 @@ code {
   border: 1px solid black
 }
 
-.gridTile p {
+.tile p {
   text-align: center;
   font-size: 16px;
   /* justify-content:flex-end;
