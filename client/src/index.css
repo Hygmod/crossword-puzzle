@@ -21,6 +21,7 @@ code {
 #grid {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   align-content: flex-start;
   width: 800px;
   height: 800px;
@@ -30,17 +31,7 @@ code {
 #grid .tile {
   width: 4.75%;
   height: 4.75%;
-  font-size: 12px;
-  
-  /* width: 5pt;
-  height: 32px; */
-  border: 1px solid black
-}
-
-.tile p {
   text-align: center;
   font-size: 16px;
-  /* justify-content:flex-end;
-  align-items: flex-end; */
   border: 1px solid black
 }
