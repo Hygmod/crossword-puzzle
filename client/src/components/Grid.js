@@ -2,39 +2,33 @@ import React from "react"
 import Tile from "./Tile"
 import wordList from "../wordList"
 
-
+const numberOfWordsToAdd = 10
 
 let gridSize = 20
 
 export default function Grid() {
   const wordListLength = wordList.length
-  let randomWord = wordList[Math.floor(Math.random() * wordListLength)]
 
-  console.log(randomWord)
-  
   const letterPositionsOnGrid = []
   let grid = []
   let words = [
-    {
-      word: "bark",
-      startPosition: [1, Math.floor(Math.random() * (6-3)+3)],
-      isHorizontal: true,
-      positions: [],
-    },
-    {
-      word: "bite",
-      startPosition: [Math.floor(Math.random() * (6-3)+3), 3],
-      isHorizontal: false,
-      positions: [],
-    },
-  ]
 
-  words.push({
-    word: randomWord,
-    startPosition: [2, Math.floor(Math.random() * (6-3)+3)],
-    isHorizontal: true,
-    positions: [],
-  })
+  ]
+  for (let i = 1; i <= numberOfWordsToAdd; i++) {
+    const randomWord = wordList[Math.floor(Math.random() * wordListLength)]
+    const minRandomNumber = 1
+    const maxRandomNumber = 15
+    const randomwRow = Math.floor(Math.random() * (maxRandomNumber - minRandomNumber) + minRandomNumber)
+    const randomColumn = Math.floor(Math.random() * (maxRandomNumber - minRandomNumber) + minRandomNumber)
+    const randomOrientation = Math.random() > 0.5
+
+    words.push({
+      word: randomWord,
+      startPosition: [randomwRow, randomColumn],
+      isHorizontal: randomOrientation,
+      positions: [],
+    })
+  }
 
   words.forEach((w) => {
     const wordLength = w.word.length
@@ -60,8 +54,6 @@ export default function Grid() {
       }
     }
   })
-
-  console.log(letterPositionsOnGrid)
 
   for (let row = 1; row <= gridSize; row++) {
     for (let column = 1; column <= gridSize; column++) {
