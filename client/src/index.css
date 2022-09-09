@@ -20,9 +20,9 @@ code {
 
 #grid {
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+  flex-flow: row wrap;
   align-content: flex-start;
+  margin: 0 10% 50px 10%;
   width: 800px;
   height: 800px;
   background-color: green;
@@ -39,3 +39,4 @@ code {
 .tile.hasLetter {
   background-color: lightgreen;
 }
+

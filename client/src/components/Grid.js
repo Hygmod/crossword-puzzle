@@ -34,25 +34,24 @@ export default function Grid() {
   const checkIfWordOverlapsOrNeighborsASameOrientationWord = function (w) {
     let y = w.isHorizontal ? 0 : 1
     let x = w.isHorizontal ? 1 : 0
-    
-      const arr = []
 
-      for (let i = w.startPosition[x]; i < w.startPosition[x] + w.word.length; i++) {
-        arr.push(i)
-      }
+    const arr = []
 
-      const sharesColumns = letterPositionsOnGrid.map((e) => {
-        return arr.includes(e.position[x])
-      })
+    for (let i = w.startPosition[x]; i < w.startPosition[x] + w.word.length; i++) {
+      arr.push(i)
+    }
 
-      const hasSharedColumns = sharesColumns.includes(true)
+    const sharesColumns = letterPositionsOnGrid.map((e) => {
+      return arr.includes(e.position[x])
+    })
 
-      const overlapsAnotherWord = letterPositionsOnGrid.filter((e) => {
-        return (e.position[y] === w.startPosition[y] || e.position[y] === w.startPosition[y] + 1 || e.position[y] === w.startPosition[y] - 1) && hasSharedColumns
-      })
+    const hasSharedColumns = sharesColumns.includes(true)
 
-      return overlapsAnotherWord.length > 0
-    
+    const overlapsAnotherWord = letterPositionsOnGrid.filter((e) => {
+      return (e.position[y] === w.startPosition[y] || e.position[y] === w.startPosition[y] + 1 || e.position[y] === w.startPosition[y] - 1) && hasSharedColumns
+    })
+
+    return overlapsAnotherWord.length > 0
   }
 
   const addLetterPostions = function (w) {
@@ -104,11 +103,9 @@ export default function Grid() {
 
     if (wordWillFit && !overlapsWithAnotherWord) {
       addLetterPostions(currentWord)
-      //   console.log(currentWord)
-      console.log(wordList)
-      wordList = wordList.filter(e=> e != currentWord.word)
+      wordList = wordList.filter((e) => e != currentWord.word)
       wordListLength = wordList.length
-      console.log(wordList)
+      console.log(currentWord)
       words.push(currentWord)
     }
   }
