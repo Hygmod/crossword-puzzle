@@ -87,7 +87,7 @@ export default function Grid() {
         word: randomWord,
         startPosition: [generateRandomNumberBetweenTwoBounds(minStartingPosition, maxStartingPosition), generateRandomNumberBetweenTwoBounds(minStartingPosition, maxStartingPosition)],
         isHorizontal: randomOrientation,
-        // positions: [],
+        positions: [],
       }
       counterPre++
 
@@ -103,6 +103,7 @@ export default function Grid() {
 
       if (wordWillFit && !overlapsWithAnotherWord && wordList.length > 1) {
         addLetterPostions(currentWord)
+
         wordList = wordList.filter((e) => e !== currentWord.word)
         console.log(wordList.length)
 
