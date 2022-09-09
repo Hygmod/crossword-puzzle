@@ -4,12 +4,12 @@ import importedWordList from "../wordList"
 
 let wordList = importedWordList
 
-const numberOfWordsToAdd = 1000
+const numberOfWordsToAdd = 100
 
 let gridSize = 20
 
 export default function Grid() {
- // let shortestWord = wordList.reduce((a, c) => (c.length <= a.length ? c : a)).length
+  // let shortestWord = wordList.reduce((a, c) => (c.length <= a.length ? c : a)).length
   const letterPositionsOnGrid = []
   let grid = []
   let words = []
@@ -32,12 +32,13 @@ export default function Grid() {
     let y = w.isHorizontal ? 0 : 1
     let x = w.isHorizontal ? 1 : 0
     const arr = []
+    const arr2 = [w.startPosition[y],w.startPosition[y]+1,w.startPosition[y]-1]
     for (let i = w.startPosition[x]; i < w.startPosition[x] + w.word.length; i++) {
       arr.push(i)
     }
-    const sharesOppositeOrientationPositions = letterPositionsOnGrid.map((e) =>arr.includes(e.position[x])).includes(true)
+    const sharesOppositeOrientationPositions = letterPositionsOnGrid.map((e) => arr.includes(e.position[x]) && arr2.includes(e.position[y])).includes(true)
     const overlapsAnotherWord = letterPositionsOnGrid.filter((e) => {
-      return (e.position[y] === w.startPosition[y] || e.position[y] === w.startPosition[y] + 1 || e.position[y] === w.startPosition[y] - 1) && sharesOppositeOrientationPositions
+      return sharesOppositeOrientationPositions
     })
     return overlapsAnotherWord.length > 0
   }
@@ -65,44 +66,56 @@ export default function Grid() {
     }
   }
 
-let counterPre = 0
-let counterPost = 0
+  const generateRandomNumberBetweenTwoBounds = (min, max) => Math.floor(Math.random() * (max - min) + min)
 
+  let counterPre = 0
+  let counterPost = 0
+  let counter = 0
+  const maxTriesToFitWord = 100
 
   for (let i = 1; i <= numberOfWordsToAdd; i++) {
     const randomWord = wordList[Math.floor(Math.random() * wordList.length)]
-    const minRandomNumber = 1
-    const maxRandomNumber = gridSize - randomWord.length
-    const randomwRow = Math.floor(Math.random() * (maxRandomNumber - minRandomNumber) + minRandomNumber)
-    const randomColumn = Math.floor(Math.random() * (maxRandomNumber - minRandomNumber) + minRandomNumber)
     const randomOrientation = Math.random() > 0.5
+    const minStartingPosition = 1
+    const maxStartingPosition = gridSize //- randomWord.length
 
-    const currentWord = {
-      word: randomWord,
-      startPosition: [randomwRow, randomColumn],
-      isHorizontal: randomOrientation,
-      // positions: [],
+    let wordWillFit = false
+    let overlapsWithAnotherWord = true
+
+    while (!wordWillFit && overlapsWithAnotherWord && counter < maxTriesToFitWord) {
+      const currentWord = {
+        word: randomWord,
+        startPosition: [generateRandomNumberBetweenTwoBounds(minStartingPosition, maxStartingPosition), generateRandomNumberBetweenTwoBounds(minStartingPosition, maxStartingPosition)],
+        isHorizontal: randomOrientation,
+        // positions: [],
+      }
+      counterPre++
+
+      //Check if word fits on grid
+      wordWillFit = checkToSeeIfTheWordWillFitOnTheGrid(currentWord)
+
+      //Check if word overlaps or neighbors a same-orientation word
+      overlapsWithAnotherWord = checkIfWordOverlapsOrNeighborsASameOrientationWord(currentWord)
+
+      //Check if overlaps occur with different-orientation word, and if so, with same letter
+
+
+
+      if (wordWillFit && !overlapsWithAnotherWord && wordList.length > 1) {
+        addLetterPostions(currentWord)
+        wordList = wordList.filter((e) => e !== currentWord.word)
+        console.log(wordList.length)
+
+        words.push(currentWord)
+
+        counterPost++
+      } else {
+        wordWillFit = false
+        overlapsWithAnotherWord = true
+        counter++
+      }
     }
-counterPre++
-    
-
-    //Check if word fits on grid
-    const wordWillFit = checkToSeeIfTheWordWillFitOnTheGrid(currentWord)
-
-    //Check if word overlaps or neighbors a same-orientation word
-    const overlapsWithAnotherWord = checkIfWordOverlapsOrNeighborsASameOrientationWord(currentWord)
-
-    //Check if overlaps occur with different-orientation word, and if so, with same letter
-
-    if (wordWillFit && !overlapsWithAnotherWord && wordList.length>1) {
-      addLetterPostions(currentWord)
-      wordList = wordList.filter((e) => e !== currentWord.word)
-      console.log(wordList.length)
-     
-      words.push(currentWord)
-
-      counterPost++
-    }
+    counter = 0
   }
 
   console.log(`counterPre = ${counterPre}`)
